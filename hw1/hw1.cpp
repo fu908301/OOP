@@ -6,14 +6,14 @@ int main()
   for(T=0;T<10;T++)
     for(O=0;O<10;O++)
       for(G=0;G<10;G++)
-        for(D=0;D<10;D++)
+        for(D=0;D<10;D++)//Use the for loop to check the left equation is equal to right equation.
         {
           if(T==O||T==G||T==D||O==G||O==D||G==D)
            continue ;
-          else if(T*400+O*40+O*4==G*1000+O*100+O*10+D)
+          else if(T*400+O*40+O*4==G*1000+O*100+O*10+D)//If the left equation is equal to right equation
           {
            times++;
-           cout<<"Answer "<<times<<endl;
+           cout<<"Answer "<<times<<endl;//Print the answer. 
            cout<<"T="<<T<<endl;
            cout<<"O="<<O<<endl;
            cout<<"G="<<G<<endl;
