@@ -12,12 +12,8 @@ int main()
            continue ;
           else if(T*400+O*40+O*4==G*1000+O*100+O*10+D)//If the left equation is equal to right equation
           {
-           times++;
-           cout<<"Answer "<<times<<endl;//Print the answer. 
-           cout<<"T="<<T<<endl;
-           cout<<"O="<<O<<endl;
-           cout<<"G="<<G<<endl;
-           cout<<"D="<<D<<endl; 
+           times++;//Print the answer. 
+           cout<<"T="<<T<<",O="<<O<<",G="<<G<<",D="<<D<<endl; 
           }
         }
   return 0;
