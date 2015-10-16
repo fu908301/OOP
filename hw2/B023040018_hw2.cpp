@@ -9,7 +9,13 @@ void compute_coin(int coinvalue)
 {
   int quarters=0,dimes=0,cent=0,pennies=0;
   cent=coinvalue;
-  if(cent>=25)
+  if(cent>=10&&cent<25)
+  {
+    pennies=cent%10;
+    dimes=cent/10;
+    cent=pennies;
+  }
+  else if(cent>=25)
   {
     pennies=cent%25;
     quarters=cent/25;
