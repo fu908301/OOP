@@ -21,7 +21,7 @@ void compute_coin(int coinvalue)
       cent=pennies;
     }
   }
-  cout<<coinvalue<<" cents can be given as\n"<<quarters<<" quarter(s) "<<dimes<<"dime(s) "<<" and "<<cent<<" penny(pennies)"<<endl;
+  cout<<coinvalue<<" cents can be given as\n"<<quarters<<" quarter(s) "<<dimes<<" dime(s) "<<"and "<<cent<<" penny(pennies)"<<endl;
 }
 bool IsDigit(string& c)
 {
