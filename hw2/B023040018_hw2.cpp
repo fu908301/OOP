@@ -1,5 +1,9 @@
 #include <iostream>
+#include <string>
+#include <sstream>
+#include <cctype>
 using namespace std;
+bool IsDigit(string& c);
 void compute_coin(int coinvalue);
 void compute_coin(int coinvalue)
 {
@@ -17,22 +21,51 @@ void compute_coin(int coinvalue)
       cent=pennies;
     }
   }
-  cout<<coinvalue<<" cents can be given as "<<quarters<<" quarter(s) "<<dimes<<" dime(s) "<<" and "<<cent<<" penny(pennies)"<<endl;
+  cout<<coinvalue<<" cents can be given as\n"<<quarters<<" quarter(s) "<<dimes<<" dime(s) "<<" and "<<cent<<" penny(pennies)"<<endl;
+}
+bool IsDigit(string& c)
+{
+  bool flag = true;
+  for(int i=0;i<c.length();i++)
+  {
+    if(!isdigit(c[i]))
+    {
+      flag=false;
+      break;
+    }
+  }
+  return flag;
 }
 int main()
 {
-  int input;
+  string input;
+  int change;
+  cout<<"Please enter 1 to 99(cents) or 'q' to quit."<<endl;
   cin>>input;
   while(1)
   {
-    if(input<100&&input>0)
+    if(input[0]=='q'&&input[1]==0)
       break;
-    else 
+    if(IsDigit(input))
     {
-      cout<<"Out of range!Please input again."<<endl;
+      istringstream is(input);
+      is>>change;
+      if(change<100&&change>0)
+      {
+        compute_coin(change);
+        cin>>input;
+      }
+      else 
+      {
+        cout<<"Please enter 1 to 99(cents) or 'q' to quit"<<endl;
+        cin>>input;
+      }
+    }
+    else
+    {
+      cout<<"Please enter 1 to 99(cents) or 'q' to quit"<<endl;
       cin>>input;
     }
   }
-  compute_coin(input);
   return 0;
 }
