@@ -205,6 +205,8 @@ istream& operator >>(istream& input,rational& ra)
         break;
     }
   }
+  if(temp == s.size())
+    re_input = false;
   if(re_input == true)
   {
     for(int j=temp;j<s.size();j++)
