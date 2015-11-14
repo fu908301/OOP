@@ -1,3 +1,12 @@
+/*
+ * TITLE: OOP HW3
+ * PURPOSE:Define a class for rational numbers 
+ * AUTHOR:CHENG-AN FU 
+ * ID NUMBER:B023040018
+ * DATE:2015/11/14
+ * VERSION:2.0
+ * LANGUAGE:C++
+ */
 #include <iostream>
 #include <cctype>
 #include <cstring>
@@ -8,13 +17,13 @@
 using namespace std;
 class rational{
   public:
-    rational(int _num,int _den);
+    rational(int _num,int _den);//constructor
     rational(int wholenumber);
     rational();
-    void gcd();
+    void gcd();//normalization
     int get_numerator();
     int get_denominator();
-    friend istream& operator >>(istream& input,rational& ra);
+    friend istream& operator >>(istream& input,rational& ra);//operator overload
     friend ostream& operator <<(ostream& output,rational& ra);
     friend rational operator -(rational& ra1);
     friend rational operator +(rational& ra1,rational& ra2);
@@ -30,19 +39,19 @@ class rational{
   private:
     int numerator,denominator;
 };
-bool re_input = false;
+bool re_input = false;//if it have to reinput or not.
 void gcd(int &num1,int &num2);
-rational::rational(int _num,int _den)
+rational::rational(int _num,int _den)//constructor
 {
   numerator = _num;
   denominator = _den;
 }
-rational::rational(int wholenumber)
+rational::rational(int wholenumber)//constructor
 {
   numerator = wholenumber;
   denominator = 1;
 }
-rational::rational()
+rational::rational()//constructor
 {
   numerator = 0;
   denominator = 1;
@@ -55,7 +64,7 @@ int rational::get_denominator()
 {
   return denominator;
 }
-void rational::gcd()
+void rational::gcd()//normalization
 {
   int a = denominator,b = numerator,r;
   if(denominator == 0)
@@ -63,7 +72,7 @@ void rational::gcd()
     denominator = 0;
     numerator = 0;
   }
-  else
+  else//use Euclid algorithm to fraction
  {
    if(b<0)
      b *= -1;
@@ -77,24 +86,24 @@ void rational::gcd()
    }
    numerator /= a;
    denominator /= a;
-   if((numerator<0&&denominator<0)||(numerator>0&&denominator<0))
+   if((numerator<0&&denominator<0)||(numerator>0&&denominator<0))//
    {
       numerator *= -1;
       denominator *= -1;
     }
   }
 }
-rational operator -(rational& ra1)
+rational operator -(rational& ra1)//make the number to inverse
 {
   int temp;
   ra1.gcd();
   temp = ra1.numerator * -1;
   return rational(temp,ra1.denominator);
 }
-rational operator +(rational& ra1,rational& ra2)
+rational operator +(rational& ra1,rational& ra2)//ra1+ra2
 {
-  if(ra1.denominator == 0 || ra2.denominator == 0)
-    return rational(0,0);
+  if(ra1.denominator == 0 || ra2.denominator == 0)//if denominator is 0
+    return rational(0,0);//output 0/0
   else
   {
     int result_nu,result_de;
@@ -182,23 +191,24 @@ istream& operator >>(istream& input,rational& ra)
 {
   char line;
   string s;
-  int temp;
-  input >> s;
-  istringstream is(s);
-  for(int i=0;i<s.size();i++)
+  int temp = 0;
+  input >> s;//input to s
+  int _size = (int)s.size();
+  istringstream is(s);//string to stream and to is
+  for(int i=0;i<_size;i++)
   {
-    if(s[0] == '/')
+    if(s[0] == '/')//if first char is '/'  then break
       break;
-    if(s[i] == '-')
+    if(s[i] == '-')//if first char is '-' then go to next char
       i++;
-    if(isdigit(s[i]) == true)
+    if(isdigit(s[i]) == true)//when char is not '/' and it is digit
       continue;
     else if(isdigit(s[i]) == false)
     {
-      if(s[i] == '/')
+      if(s[i] == '/')//if the char is '/'
       {
-        is>>ra.numerator;
-        is>>line;
+        is>>ra.numerator;//number to numerator
+        is>>line;// '/' to one char 
         re_input = true;
         temp = i+1;
         break;
@@ -207,21 +217,21 @@ istream& operator >>(istream& input,rational& ra)
         break;
     }
   }
-  if(temp == s.size())
+  if(temp == _size)//if the input like 987/  then break
     re_input = false;
   if(re_input == true)
   {
-    for(int j=temp;j<s.size();j++)
+    for(int j=temp;j<_size;j++)
     {
-      if(s[j] == '-')
+      if(s[j] == '-')//if char is '-' then go to next
         j++;
-      if((isdigit(s[j]) == true) && (j == s.size()-1))
+      if((isdigit(s[j]) == true) && (j == _size-1))
       {
-        is>>ra.denominator;
+        is>>ra.denominator;//number to denominator
         re_input = true;
         break;
       }
-      else if(isdigit(s[j]) == false)
+      else if(isdigit(s[j]) == false)//if the char is not digitt 
       {
         re_input = false;
         break;
