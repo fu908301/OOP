@@ -189,6 +189,8 @@ istream& operator >>(istream& input,rational& ra)
   {
     if(s[0] == '/')
       break;
+    if(s[i] == '-')
+      i++;
     if(isdigit(s[i]) == true)
       continue;
     else if(isdigit(s[i]) == false)
@@ -211,6 +213,8 @@ istream& operator >>(istream& input,rational& ra)
   {
     for(int j=temp;j<s.size();j++)
     {
+      if(s[j] == '-')
+        j++;
       if((isdigit(s[j]) == true) && (j == s.size()-1))
       {
         is>>ra.denominator;
@@ -289,7 +293,6 @@ void Test(rational& ra1,rational& ra2)
 int main()
 {
   rational r0,temp;
-  char c;
   cout<<"R0's numerator:"<<r0.get_numerator()<<" denominator:"<<r0.get_denominator()<<endl;
   cout<<"R0 = "<<r0<<endl;
   rational r1(10);
