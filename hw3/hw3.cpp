@@ -4,7 +4,7 @@
  * AUTHOR:CHENG-AN FU 
  * ID NUMBER:B023040018
  * DATE:2015/11/14
- * VERSION:2.0
+ * VERSION:2.1
  * LANGUAGE:C++
  */
 #include <iostream>
@@ -136,7 +136,10 @@ rational operator *(rational& ra1,rational& ra2)
     result_nu = ra1.numerator * ra2.numerator;
     result_de = ra1.denominator * ra2.denominator;
     gcd(result_nu,result_de);
-    return rational(result_nu,result_de);
+    if(result_de == 0)
+      return rational(0,0);
+    else
+      return rational(result_nu,result_de);
   }
 }
 rational operator /(rational& ra1,rational& ra2)
@@ -149,7 +152,10 @@ rational operator /(rational& ra1,rational& ra2)
     result_nu = ra1.numerator * ra2.denominator;
     result_de = ra1.denominator * ra2.numerator;
     gcd(result_nu,result_de);
-    return rational(result_nu,result_de);
+    if(result_de == 0)
+      return rational(0,0);
+    else
+      return rational(result_nu,result_de);
   }
 }
 bool operator ==(rational& ra1,rational& ra2)
