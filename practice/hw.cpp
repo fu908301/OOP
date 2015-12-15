@@ -33,10 +33,11 @@ void copy_array(int A[],int B[])
 }
 void print(int A[],int times)
 {
+  int temp = times - 1;
   cout<<"The content in array"<<endl;
   for(int i = 0;i<=50;i++)
   {
-    if(i!=0 && i%times == 0)
+    if(i!=0 && i%times == temp)
       cout<<"["<<i<<"]"<<A[i]<<endl;
     else  
       cout<<"["<<i<<"]"<<A[i]<<"   ";
@@ -45,10 +46,11 @@ void print(int A[],int times)
 }
 void print(int A[],int times,char c)
 {
+  int temp = times - 1;
   cout<<"The previous 26 elements after selection sort"<<endl;
   for(int i = 0;i<=25;i++)
   {
-    if(i!=0 && i%times == 0)
+    if(i!=0 && i%times == temp)
       cout<<"["<<i<<"]"<<A[i]<<endl;
     else
       cout<<"["<<i<<"]"<<A[i]<<"   ";
@@ -99,8 +101,8 @@ int main()
   print(A,times);
   print(B,times,c);
   find_min_and_max(A,Max,Min,max_mark,min_mark);
-  cout<<"Max is "<<Max<<" "<<"its mark is "<<max_mark<<endl;
-  cout<<"Min is "<<Min<<" "<<"its mark is "<<min_mark<<endl;
+  cout<<"Max is "<<Max<<" "<<"and its mark is "<<max_mark<<endl;
+  cout<<"Min is "<<Min<<" "<<"and its mark is "<<min_mark<<endl;
   cout<<"Medium is "<<B[25]<<endl;
   return 0;
 }
