@@ -8,6 +8,11 @@ VERSION:1.0
 LANGUAGE:C++
  */
 #include <iostream>
+#include <string>
+#include <cctype>
+#include <cstring>
+#include <sstream>
+#include <cstdlib>
 using namespace std;
 int pluss(int input);
 int pluss(int input)
@@ -19,12 +24,37 @@ int pluss(int input)
 }
 int main()
 {
-  int input,output;
-  while(input != 0)
+  int temp,output,_size;
+  char input[50];
+  bool _isdigit = true;
+  while(1)
   {
-   cin>>input; //input
-   output = pluss(input);
-   cout<<output<<endl;//output
+    cout<<"Please enter numbers of bowling pins' rows from 1 to 5000 or 'q' to quit."<<endl;
+    cin.getline(input,50);//input as string 
+    _size = strlen(input);
+    if(_size == 1 && input[0] == 'q')//if input is 'q'
+      break;//then finish
+    for(int i = 0;i < _size;i++)
+    {
+      if(!isdigit(input[i]))//To sure if all elements are digit
+      {
+        _isdigit = false;
+        break;
+      }
+    }
+    if(_isdigit == false)//If not all elements are digit,then reinput
+      continue;
+    else if(_isdigit == true)//If all elements are digit
+    {
+      temp = atoi(input);//Change to integer
+      if(temp < 1||temp > 5000)//If out of range
+        continue;//Reinput
+      else 
+      {
+        output = pluss(temp);//Do resursive
+        cout<<"There are totally "<<output<<" bowling pins."<<endl;//Output the answer
+      }
+    }
   }
   return 0;
 }
