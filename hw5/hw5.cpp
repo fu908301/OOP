@@ -4,7 +4,7 @@
  * AUTHOR:CHENG-AN FU 
  * ID NUMBER:B023040018
  * DATE:2015/12/26
- * VERSION:2.0
+ * VERSION:3.0 fixed some invisible bug
  * LANGUAGE:C++
  */
 #include <iostream>
@@ -138,8 +138,7 @@ Polynomial operator + (Polynomial & P1,Polynomial & P2)//+ overload
     for(int i = 0;i < N_terms;i++)
       coeffs[i] = P1.P_Coeff[i];//P1 -> temp
     for(int i = 0;i < P2.N_elements;i++)
-      coeffs[i] += P2.P_Coeff[i];//temp = temp + P2
-    return  Polynomial(coeffs,N_terms);//return 
+      coeffs[i] += P2.P_Coeff[i];//temp = temp + P2 
     delete coeffs;
   }
   else if(P1.N_elements < P2.N_elements)//else if the elements in P2 > P1
@@ -150,9 +149,9 @@ Polynomial operator + (Polynomial & P1,Polynomial & P2)//+ overload
       coeffs[i] = P2.P_Coeff[i];
     for(int i = 0;i < P1.N_elements;i++)
       coeffs[i] += P1.P_Coeff[i];
-    return Polynomial(coeffs,N_terms);
     delete coeffs;
   }
+  return Polynomial(coeffs,N_terms);
 }
 Polynomial operator +(double value,Polynomial & P)//if value + P  
 { 
@@ -160,8 +159,8 @@ Polynomial operator +(double value,Polynomial & P)//if value + P
   for(int i = 0;i < P.N_elements;i++)
     coeffs[i] = P.P_Coeff[i];//P -> temp
   coeffs[0] += value;//constant + value
+  delete coeffs;//Kill the temp space
   return Polynomial(coeffs,P.N_elements);//return 
-  delete coeffs;//Kill temp space
 }
 Polynomial operator +(Polynomial & P,double value)
 {
@@ -169,8 +168,8 @@ Polynomial operator +(Polynomial & P,double value)
   for(int i = 0;i < P.N_elements;i++)
     coeffs[i] = P.P_Coeff[i];
   coeffs[0] += value;
-  return Polynomial(coeffs,P.N_elements);
   delete coeffs;
+  return Polynomial(coeffs,P.N_elements);
 }
 Polynomial operator - (Polynomial & P1,Polynomial & P2)//do like what it do on + overload 
 {
@@ -185,7 +184,6 @@ Polynomial operator - (Polynomial & P1,Polynomial & P2)//do like what it do on +
       coeffs[i] = P1.P_Coeff[i];
     for(int i = 0;i < P2.N_elements;i++)
       coeffs[i] -= P2.P_Coeff[i];
-    return Polynomial(coeffs,N_terms);
     delete coeffs;
   }
   else if(P1.N_elements < P2.N_elements)
@@ -199,10 +197,10 @@ Polynomial operator - (Polynomial & P1,Polynomial & P2)//do like what it do on +
       coeffs[i] = P2.P_Coeff[i];
     for(int i = 0;i < N_terms;i++)
       coeffs[i] = temp[i] - coeffs[i];
-    return Polynomial(coeffs,N_terms);
     delete coeffs;
     delete temp;
   }
+  return Polynomial(coeffs,N_terms);
 }
 Polynomial operator - (double value,Polynomial & P)//do like what it do on + overload
 {
@@ -211,9 +209,9 @@ Polynomial operator - (double value,Polynomial & P)//do like what it do on + ove
   temp[0] = value;
   for(int i = 0;i < P.N_elements;i++)
     coeffs[i] =temp[i] - P.P_Coeff[i];
-  return Polynomial(coeffs,P.N_elements);
   delete coeffs;
   delete temp;
+  return Polynomial(coeffs,P.N_elements);
 }
 Polynomial operator - (Polynomial & P,double value)
 {
@@ -221,8 +219,8 @@ Polynomial operator - (Polynomial & P,double value)
   for(int i = 0;i < P.N_elements;i++)
     coeffs[i] = P.P_Coeff[i];
   coeffs[0] -= value;
-  return Polynomial(coeffs,P.N_elements);
   delete coeffs;
+  return Polynomial(coeffs,P.N_elements);
 }
 Polynomial operator * (Polynomial & P1,Polynomial & P2)//* overload
 {
@@ -237,24 +235,24 @@ Polynomial operator * (Polynomial & P1,Polynomial & P2)//* overload
       coeffs[i + j] += P1.P_Coeff[i] * P2.P_Coeff[j];
     }
   }
-  return Polynomial(coeffs,N_terms);//return 
   delete coeffs;//Kill temp space
+  return Polynomial(coeffs,N_terms);//return 
 }
 Polynomial operator * (double value,Polynomial & P)//just multiply every elements
 {
   double *coeffs = new double[P.N_elements];
   for(int i = 0;i < P.N_elements;i++)
     coeffs[i] = P.P_Coeff[i] * value;
-  return Polynomial(coeffs,P.N_elements);
   delete coeffs;
+  return Polynomial(coeffs,P.N_elements);
 }
 Polynomial operator * (Polynomial & P,double value)
 {
   double *coeffs = new double[P.N_elements]; 
   for(int i = 0;i < P.N_elements;i++)
    coeffs[i] = P.P_Coeff[i] * value;
-  return Polynomial(coeffs,P.N_elements);
   delete coeffs;
+  return Polynomial(coeffs,P.N_elements);
 }
 int main(void)
 {
@@ -270,11 +268,12 @@ void Test(Polynomial &p1, Polynomial &p2)
     //Constructor
     cout << "[ Constructor ]" << endl;
     Polynomial Default_Sum;
+    Polynomial Sum;
     cout << "Default_Sum = ";
     Default_Sum.print();
-    Polynomial Sum(p1);
+    Polynomial Sum1(p1);
     cout << "Copy_Sum = ";
-    Sum.print();
+    Sum1.print();
     cout << endl;
     //Show Polynomial Function 1 and 2
     cout << "[ Show Polynomial Function ]" << endl;
