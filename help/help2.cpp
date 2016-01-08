@@ -39,9 +39,13 @@ void score::produce_score()
 }
 void score::produce_final_score()
 {
+  float temp;
   for(int i = 0;i < students;i++)
   {
+    temp = 0.2 * usually_test[i] + 0.4 * midterm_exam[i] + 0.4 * final_exam[i];
     final_score[i] = 0.2 * usually_test[i] + 0.4 * midterm_exam[i] + 0.4 * final_exam[i];
+    if(temp - final_score[i] >= 0.5)
+      final_score[i]++;
     if(final_score[i] > max_score)
     {
       max_score = final_score[i];
